@@ -51,6 +51,28 @@ app.get('/todos/:id', (req, res) => {
 	});
 });
 
+// to delete route
+app.delete('/todos/:id', (req, res) => {
+	var todoId = req.params.id;
+	if(!ObjectID.isValid(todoId)) {
+		return res.status(404).send({msg:"Id not valid"});
+	}
+
+	Todo.findByIdAndRemove(todoId).then((todo) => {
+		if(!todo) {
+			return res.status(400).send({msg:"todo not available."});
+		}
+		res.send({
+			todo,
+			status:200
+		});
+	}).catch((e) => {
+		return res.status(401).send({
+			msg:"error"
+		});
+	});
+});
+
 
 // start server
 app.listen(port, () => {
