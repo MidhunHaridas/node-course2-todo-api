@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 // connecting to mongo db
 // mongoose.connect('mongodb://localhost:27017/TodoApp');
 // use the below if deprecation warning pops up
-mongoose.connect('mongodb://localhost:27017/TodoApp', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/TodoApp', {
   useMongoClient: true
 });
 
